@@ -1,0 +1,682 @@
+#:import Factory kivy.factory.Factory
+
+WindowManager:
+    MainWindow:
+    FormWindow:
+    ScanWindow:
+    DevWindow:
+
+<MsgPopup@Popup>
+    auto_dismiss: False
+    title: "Success!"
+    size_hint: 0.8, 0.4
+    pos_hint: {"center_x" : 0.5, "center_y" : 0.5}
+
+    BoxLayout:
+
+        orientation: "vertical"
+
+        Label:
+            text: "Your Qr has been generated!\nYou need to restart the app\n to view the latest QR."
+            font_size: "14dp"
+
+        Button:
+            text: "Okay!"
+            font_size: "14dp"
+            size_hint: 1, 0.3
+            pos_hint: {"center_x" : 0.5, "center_y" : 0.5}
+
+            on_release: root.dismiss()
+
+<MainWindow>:
+    name: "main"
+
+    BoxLayout:
+
+        orientation: "vertical"
+        size: root.width, root.height
+        padding: "30dp"
+        spacing: "20dp"
+
+        Label:
+            text: "MediQR"
+            font_size: "40dp"
+            font_name: "fonts/Aadhunik.ttf"
+            color: 217/255, 11/255, 11/255, 1
+            halign: "center"
+            size_hint: 0.2, 0.1
+            pos_hint: {"center_x":0.5}
+
+
+        Image:
+            source: r"images/pulse.png"
+            size_hint: None, None
+            size: "80dp", "80dp"
+            pos_hint: {"center_x":0.5}
+            allow_stretch: True
+            keep_ratio: True  
+
+        Label:
+            text: "Helps you to send all your\nmedical data fast and easily..."
+            font_size: "30dp"
+            font_name: "fonts/Chocolate.ttf"
+            color: 217/255, 11/255, 11/255, 1
+            halign: "center"
+            size_hint: 0.2, 0.1
+            pos_hint: {"center_x":0.5}        
+
+        Button:
+            text: "Fill Medical Details"
+            font_size: "15dp"
+            color: 0/255, 0/255, 0/255, 1
+            size_hint: None, 0.05
+            width: "220dp"
+            pos_hint: {"center_x":0.5}
+            background_normal: ''
+            border: 16,16,16,16
+            background_color: 247/255, 59/255, 59/255, 1
+
+            on_release:
+                app.root.current = "form"
+                root.manager.transition.direction = "left"
+
+            canvas.before:
+                Color:
+                    rgba: 0,0,0,1
+
+                Line:
+                    width: 3
+                    rectangle: self.x, self.y, self.width, self.height
+
+        Button:
+            text: "View Previous QR"
+            font_size: "15dp"
+            color: 0/255, 0/255, 0/255, 1
+            size_hint: None, 0.05
+            width: "220dp"
+            pos_hint: {"center_x":0.5, "center_y":0.7}
+            background_normal: ''
+            background_color: 247/255, 59/255, 59/255, 1  
+
+            on_release:
+                app.root.current = "scan"
+                root.manager.transition.direction = "left"
+
+            canvas.before:
+                Color:
+                    rgba: 0,0,0,1
+
+                Line:
+                    width: 3
+                    rectangle: self.x, self.y, self.width, self.height
+
+        Button:
+            text: "Developer Information"
+            font_size: "15dp"
+            color: 0/255, 0/255, 0/255, 1
+            size_hint: None, 0.05
+            width: "220dp"
+            pos_hint: {"center_x":0.5, "center_y":0.7}
+            background_normal: ''
+            background_color: 247/255, 59/255, 59/255, 1  
+
+            on_release:
+                app.root.current = "dev"
+                root.manager.transition.direction = "right"
+
+            canvas.before:
+                Color:
+                    rgba: 0,0,0,1
+
+                Line:
+                    width: 3
+                    rectangle: self.x, self.y, self.width, self.height
+
+
+
+<FormWindow>:
+    name: "form"
+
+    BoxLayout:
+        name: "box"
+
+        orientation: "vertical"
+        size_hint: None, None
+        size: root.width, root.height
+        spacing: "20dp"
+
+        GridLayout:
+
+            cols: 2
+            pos_hint: {"left" : 0, "top": 1}
+            size_hint: 1, None
+            height: "60dp"
+            padding: "20dp"
+
+            Button:
+                text: "Back"
+                font_size: "15dp"
+                color: 0/255, 0/255, 0/255, 1
+                size_hint: None, None
+                size: "50dp", "50dp"
+                pos_hint: {"left":0, "center_y":0.7}
+                background_normal: ''
+                background_color: 247/255, 59/255, 59/255, 1  
+
+                on_release: 
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+
+                canvas.before:
+                    Color:
+                        rgba: 0,0,0,1
+
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+
+
+            Label:
+                text: "Medical Form"
+                font_size: "25dp"
+                font_name: "fonts/Aadhunik.ttf"
+                color: 217/255, 11/255, 11/255, 1
+                halign: "center"
+                size_hint: 0.8, None
+                height: "50dp"
+                pos_hint: {"center_x":0.5}
+
+        Label:
+            text: "Kindly press Enter after filling each data entry..."
+            font_size: "18dp"
+            font_name: "fonts/Chocolate.ttf"
+            color: 217/255, 11/255, 11/255, 1
+            halign: "center"
+            size_hint: 0.2, 0.1
+            pos_hint: {"center_x":0.5}  
+
+        ScrollView:
+
+            GridLayout:
+
+                cols: 2
+                pos_hint: {"left" : 0, "top": 1}
+                size_hint: 1, None
+                height: self.minimum_height
+                padding: "40dp"
+                spacing: "30dp"
+
+                Label:
+                    text: "Full Name"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_fullName(self)
+
+                Label:
+                    text: "Personal\nContact Number"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_personalNumber(self)
+
+                Label:
+                    text: "Emergency\nContact Number"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_emergencyNumber(self)
+
+                Label:
+                    text: "EMail Address"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_emailAddress(self)
+
+
+                Label:
+                    text: "Gender"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_gender(self)
+
+                Label:
+                    text: "Home\nAddress"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5, "center_y":1}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_homeAddress(self)
+
+
+                Label:
+                    text: "Medical\nSymptoms"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5, "center_y":1}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_medSymptoms(self)
+
+                Label:
+                    text: "Current Medication\n(if any)"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5, "center_y":1}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_medication(self)
+
+                Label:
+                    text: "Current Allergies\n(if any)"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5, "center_y":1}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_allergies(self)
+
+                Label:
+                    text: "Medical Diagnosis\n(if any)"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5, "center_y":1}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_medDiagnosis(self)
+
+                Label:
+                    text: "Past Medical\nConditions"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5, "center_y":1}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_pastConditions(self)
+
+
+                Label:
+                    text: "History of tobacco\nconsumption"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_tobacco(self)
+
+                Label:
+                    text: "History of alcohol\nconsumption"
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    size_hint: 0.1, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                TextInput:
+                    text: ""
+                    multiline: False
+                    font_size: "14dp"
+                    color: 0/255, 0/255, 0/255, 1
+                    halign: "center"
+                    valign: "center"
+                    size_hint: 0.2, None
+                    height: "40dp"
+                    pos_hint: {"center_x":0.5}
+
+                    on_text_validate : root.on_text_validate_alcohol(self)
+
+        GridLayout:
+            rows: 2
+            pos_hint: {"center_x":0.5, "bottom":0}
+            size_hint: 1, 0.2
+            padding: "20dp"
+            spacing: "20dp"
+
+            Button:
+                text: "Generate QR Code"
+                font_size: "15dp"
+                color: 0/255, 0/255, 0/255, 1
+                size_hint: 1, None
+                height: "70dp"
+                pos_hint: {"center_x":0.5}
+                background_normal: ''
+                border: 16,16,16,16
+                background_color: 247/255, 59/255, 59/255, 1
+
+                on_release:
+                    root.on_button_release_qrGenerate()
+                    Factory.MsgPopup().open()
+
+
+
+
+                canvas.before:
+                    Color:
+                        rgba: 0,0,0,1
+
+                    Line:
+                        width: 3
+                        rectangle: self.x, self.y, self.width, self.height
+        
+
+<ScanWindow>:
+    name: "scan"
+
+    GridLayout:
+        cols: 2
+        pos_hint: {"left" : 0, "top": 1}
+        size_hint: None, 0.2
+        width: root.width
+        padding: "20dp"
+
+        Button:
+            text: "Back"
+            font_size: "15dp"
+            color: 0/255, 0/255, 0/255, 1
+            size_hint: None, None
+            height: "50dp"
+            width: "50dp"
+            pos_hint: {"left":0, "center_y":0.7}
+            background_normal: ''
+            background_color: 247/255, 59/255, 59/255, 1  
+
+            on_release: 
+                app.root.current = "main"
+                root.manager.transition.direction = "right"
+
+            canvas.before:
+                Color:
+                    rgba: 0,0,0,1
+
+                Line:
+                    width: 3
+                    rectangle: self.x, self.y, self.width, self.height
+
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        padding: "30dp"
+        spacing: "20dp"    
+
+        Image:
+            source: "images/qr.png"
+            size_hint: 0.7, 0.7
+            pos_hint: {"center_x":0.5, "center_y":0.5}
+            allow_stretch: True
+            keep_ratio: True 
+
+        Label:
+            text:
+
+                '''
+                To update the Qr Code, in case it returns
+                a previously generated code, kindly refresh
+                the app!
+                '''
+
+            font_size: "14dp"
+            color: 217/255, 11/255, 11/255, 1
+            halign: "left"
+            size_hint: 1,0.2
+            pos_hint: {"center_x":0.5}
+
+
+
+<DevWindow>:
+    name: "dev"
+
+    GridLayout:
+        cols: 2
+        pos_hint: {"left" : 0, "top": 1}
+        size_hint: None, 0.2
+        width: root.width
+        padding: "20dp"
+
+        Button:
+            text: "Back"
+            font_size: "15dp"
+            color: 0/255, 0/255, 0/255, 1
+            size_hint: None, None
+            height: "50dp"
+            width: "50dp"
+            pos_hint: {"left":0, "center_y":0.7}
+            background_normal: ''
+            background_color: 247/255, 59/255, 59/255, 1  
+
+            on_release: 
+                app.root.current = "main"
+                root.manager.transition.direction = "left"
+
+            canvas.before:
+                Color:
+                    rgba: 0,0,0,1
+
+                Line:
+                    width: 3
+                    rectangle: self.x, self.y, self.width, self.height
+
+
+        Label:
+            text: "Developer Info"
+            font_size: "25dp"
+            font_name: "fonts/Aadhunik.ttf"
+            color: 217/255, 11/255, 11/255, 1
+            halign: "center"
+            size_hint: 0.8, None
+            height: "50dp"
+            pos_hint: {"center_x":0.5}
+
+
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: None, 0.8
+        width: root.width
+        padding: "30dp"
+        spacing: "30dp"
+
+        Label:
+            text:
+
+                '''
+                This app was developed by Vibhor Agrawal
+                and Abhyuday Sachdeva for HackOverFlow6.0
+                organised by NIT Durgapur.
+                \n
+                This app is a simple prototype depicting
+                the use of QR Code to transfer a standard
+                medical form and patient details to 
+                medical personnel, nurses and doctors.
+                \n
+                The idea is to help those in need of
+                urgent medical care, by providing them
+                and their well-wishers, an easy way
+                to fill basic medical details.
+                \n
+                Thank you for checking our prototype!
+                '''
+
+            font_size: "14dp"
+            color: 217/255, 11/255, 11/255, 1
+            halign: "left"
+            size_hint: 1,1
+            pos_hint: {"center_x":0.5}
+
+
+        Image:
+            source: r"images/caduceus.png"
+            size_hint: None, None
+            size: "80dp", "80dp"
+            pos_hint: {"center_x":0.5}
+            allow_stretch: True
+            keep_ratio: True  
