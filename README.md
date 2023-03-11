@@ -2,6 +2,7 @@
 
 ## Table of contents
 
+- project link
 - Requirements
 - Recommended Modules
 - Installation
@@ -9,6 +10,13 @@
 - Troubleshooting
 - FAQ
 - Maintainers
+
+## Project Link
+
+The project can be accessed through the following Google Drive link.
+Please access it to check project files.
+
+- [MediQR Project](https://drive.google.com/drive/folders/11FGEJBlsvDuL5mFOWR2k-jK0ZmzQNjJZ?usp=sharing)
 
 ## Requirements
 
